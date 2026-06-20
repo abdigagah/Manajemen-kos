@@ -21,7 +21,7 @@
             <div class="rounded-xl bg-green-500 p-6 text-white shadow">
                 <h2 class="text-lg">Kamar Kosong</h2>
                 <h1 class="mt-3 text-4xl font-bold">
-                    3
+                    7
                 </h1>
             </div>
 
