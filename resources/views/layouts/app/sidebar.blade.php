@@ -10,13 +10,49 @@
                 <flux:sidebar.collapse class="lg:hidden" />
             </flux:sidebar.header>
 
-            <flux:sidebar.nav>
-                <flux:sidebar.group :heading="__('Platform')" class="grid">
-                    <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
-                    </flux:sidebar.item>
-                </flux:sidebar.group>
-            </flux:sidebar.nav>
+           <flux:sidebar.nav>
+
+    <flux:sidebar.group heading="Menu Utama" class="grid">
+
+        <flux:sidebar.item
+            icon="home"
+            :href="route('dashboard')"
+            :current="request()->routeIs('dashboard')"
+            wire:navigate>
+            Dashboard
+        </flux:sidebar.item>
+
+        <flux:sidebar.item
+            icon="users"
+            href="/admin"
+            wire:navigate>
+            Admin
+        </flux:sidebar.item>
+
+        <flux:sidebar.item
+            icon="building-office"
+            href="/kamar"
+            wire:navigate>
+            Kamar Kos
+        </flux:sidebar.item>
+
+        <flux:sidebar.item
+            icon="check-circle"
+            href="/kamar-kosong"
+            wire:navigate>
+            Kamar Kosong
+        </flux:sidebar.item>
+
+        <flux:sidebar.item
+            icon="x-circle"
+            href="/kamar-terisi"
+            wire:navigate>
+            Kamar Terisi
+        </flux:sidebar.item>
+
+    </flux:sidebar.group>
+
+</flux:sidebar.nav>
 
             <flux:spacer />
 
