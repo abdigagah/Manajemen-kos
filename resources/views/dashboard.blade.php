@@ -1,3 +1,9 @@
+@php
+use App\Models\User;
+
+
+$totalAdmin = User::where('role', 'admin')->count();
+@endphp
 <x-layouts::app :title="__('Dashboard')">
 
     <div class="space-y-6">
@@ -32,12 +38,12 @@
                 </h1>
             </div>
 
-            <div class="rounded-xl bg-yellow-500 p-6 text-white shadow">
-                <h2 class="text-lg">Total Admin</h2>
-                <h1 class="mt-3 text-4xl font-bold">
-                    1
-                </h1>
-            </div>
+           <div class="rounded-xl bg-yellow-500 p-6 text-white shadow">
+    <h2 class="text-lg">Total Admin</h2>
+    <h1 class="mt-3 text-4xl font-bold">
+        {{ $totalAdmin }}
+    </h1>
+</div>
 
         </div>
 </x-layouts::app>
