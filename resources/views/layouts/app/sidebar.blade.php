@@ -35,20 +35,12 @@
             Kamar Kos
         </flux:sidebar.item>
 
-        <flux:sidebar.item
-            icon="check-circle"
-            href="/kamar-kosong"
-            wire:navigate>
-            Kamar Kosong
-        </flux:sidebar.item>
-
-        <flux:sidebar.item
-            icon="x-circle"
-            href="/kamar-terisi"
-            wire:navigate>
-            Kamar Terisi
-        </flux:sidebar.item>
-
+        <flux:navlist.item
+    icon="credit-card"
+    :href="route('pembayaran.index')"
+    :current="request()->routeIs('pembayaran.*')">
+    Pembayaran
+</flux:navlist.item>
     </flux:sidebar.group>
 
 </flux:sidebar.nav>

@@ -8,6 +8,7 @@ new class extends Component
 {
     public string $search = '';
 
+    public string $filterStatus = '';
     public string $nomor = '';
     public string $harga = '';
     public string $status = 'Kosong';
@@ -24,22 +25,19 @@ new class extends Component
     public function save()
     {
         $this->validate([
-            'nomor' => 'required|unique:kamars,nomor_kamar',
-            'harga' => 'required|numeric',
-            'status' => 'required',
-        ]);
+    'nomor' => 'required|unique:kamars,nomor_kamar',
+    'harga' => 'required|numeric',
+    ]);
 
-       Kamar::create([
+      Kamar::create([
     'nomor_kamar' => $this->nomor,
     'harga' => $this->harga,
-    'status' => $this->status,
+    'status' => 'Kosong',
     'keterangan' => $this->keterangan,
     ]);
     
 
         $this->reset('nomor', 'harga', 'keterangan');
-
-        $this->status = 'Kosong';
 
         Flux::modal('create-kamar')->close();
 
@@ -97,12 +95,18 @@ new class extends Component
         session()->flash('success', 'Data kamar berhasil dihapus.');
     }
 
-    public function getKamarsProperty()
-    {
-       return Kamar::where('nomor_kamar', 'like', "%{$this->search}%")
-            ->latest()
-            ->get();
-    }
+   public function getKamarsProperty()
+{
+    return Kamar::query()
+        ->when($this->search, function ($query) {
+            $query->where('nomor_kamar', 'like', '%' . $this->search . '%');
+        })
+        ->when($this->filterStatus, function ($query) {
+            $query->where('status', $this->filterStatus);
+        })
+        ->latest()
+        ->get();
+}
 };
 
 ?>
@@ -130,9 +134,22 @@ new class extends Component
 
     </div>
 
+    <div class="flex gap-4">
+
     <flux:input
         wire:model.live="search"
-        placeholder="Cari nomor kamar..." />
+        placeholder="Cari nomor kamar..."
+        class="flex-1" />
+
+    <flux:select wire:model.live="filterStatus">
+
+        <option value="">Semua Status</option>
+        <option value="Kosong">Kosong</option>
+        <option value="Terisi">Terisi</option>
+
+    </flux:select>
+
+</div>
 
     @if(session()->has('success'))
         <flux:callout variant="success">
@@ -204,22 +221,23 @@ new class extends Component
                         {{ $kamar->keterangan }}
                     </td>
 
-                    <td class="p-3 text-center space-x-2">
+                    
 
-                        <button
-                            type="button"
-                            wire:click="edit({{ $kamar->id }})"
-                            class="inline-flex items-center rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700">
+                       <td class="p-3 text-center space-x-2">
 
-                            Edit
+    <button
+        type="button"
+        wire:click="edit({{ $kamar->id }})"
+        class="inline-flex items-center rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700">
+        Edit
+    </button>
 
-                        <button
-    type="button"
+    <flux:button
+    variant="danger"
     wire:click="confirmDelete({{ $kamar->id }})"
-    class="px-3 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+    >
     Hapus
-</button>
-
+</flux:button>
                     </td>
 
                 </tr>
@@ -262,15 +280,6 @@ new class extends Component
             wire:model="harga"
             type="number"
             label="Harga" />
-
-        <flux:select
-            wire:model="status"
-            label="Status">
-
-            <option value="Kosong">Kosong</option>
-            <option value="Terisi">Terisi</option>
-
-        </flux:select>
 
         <flux:textarea
             wire:model="keterangan"

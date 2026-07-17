@@ -11,6 +11,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::livewire('/admin', 'pages::admin.index')->name('admin');
 
    Route::livewire('/kamar', 'pages::kamar.index')->name('kamar');
+   
+   Route::livewire('/pembayaran', 'pages::pembayaran.index')
+    ->middleware(['auth'])
+    ->name('pembayaran.index');
 });
 
 require __DIR__.'/settings.php';
