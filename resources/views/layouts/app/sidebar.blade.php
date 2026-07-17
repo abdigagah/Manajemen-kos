@@ -31,8 +31,7 @@
 
         <flux:sidebar.item
             icon="building-office"
-            href="/kamar"
-            wire:navigate>
+            href="/kamar">
             Kamar Kos
         </flux:sidebar.item>
 
