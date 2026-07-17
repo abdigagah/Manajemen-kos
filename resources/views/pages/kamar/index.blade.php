@@ -27,12 +27,13 @@ new class extends Component
         $this->validate([
     'nomor' => 'required|unique:kamars,nomor_kamar',
     'harga' => 'required|numeric',
+    'status' => 'required',
     ]);
 
       Kamar::create([
     'nomor_kamar' => $this->nomor,
     'harga' => $this->harga,
-    'status' => 'Kosong',
+    'status' => $this->status,
     'keterangan' => $this->keterangan,
     ]);
     
@@ -280,6 +281,15 @@ new class extends Component
             wire:model="harga"
             type="number"
             label="Harga" />
+
+        <flux:select
+            wire:model="status"
+            label="Status">
+
+            <option value="Kosong">Kosong</option>
+            <option value="Terisi">Terisi</option>
+
+        </flux:select>
 
         <flux:textarea
             wire:model="keterangan"

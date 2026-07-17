@@ -237,6 +237,60 @@ public function delete()
         </tbody>
 
     </table>
+    <flux:modal name="create-pembayaran" class="md:w-96">
+
+    <form wire:submit="save" class="space-y-4">
+
+        <flux:heading size="lg">
+            Tambah Pembayaran
+        </flux:heading>
+
+        <flux:input
+            wire:model="nama_penyewa"
+            label="Nama Penyewa" />
+
+        <flux:input
+            wire:model="nomor_kamar"
+            label="Nomor Kamar" />
+
+        <flux:input
+            wire:model="bulan"
+            label="Bulan" />
+
+        <flux:input
+            wire:model="nominal"
+            type="number"
+            label="Nominal" />
+
+        <flux:select
+            wire:model="status"
+            label="Status">
+
+            <option value="Belum Lunas">Belum Lunas</option>
+            <option value="Lunas">Lunas</option>
+
+        </flux:select>
+
+        <div class="flex justify-end gap-2">
+
+            <flux:modal.close>
+                <flux:button variant="ghost">
+                    Batal
+                </flux:button>
+            </flux:modal.close>
+
+            <flux:button
+                type="submit"
+                variant="primary">
+                Simpan
+            </flux:button>
+
+        </div>
+
+    </form>
+
+</flux:modal>
+
     <flux:modal name="edit-pembayaran" class="md:w-96">
 
     <form wire:submit="update" class="space-y-4">
@@ -288,6 +342,40 @@ public function delete()
         </div>
 
     </form>
+
+</flux:modal>
+
+<flux:modal name="delete-pembayaran" class="md:w-96">
+
+    <div class="space-y-4">
+
+        <flux:heading size="lg">
+            Hapus Pembayaran
+        </flux:heading>
+
+        <p class="text-zinc-600">
+            Apakah Anda yakin ingin menghapus data pembayaran ini?
+        </p>
+
+        <div class="flex justify-end gap-2">
+
+            <flux:modal.close>
+                <flux:button variant="ghost">
+                    Batal
+                </flux:button>
+            </flux:modal.close>
+
+            <flux:button
+                variant="danger"
+                wire:click="delete">
+
+                Hapus
+
+            </flux:button>
+
+        </div>
+
+    </div>
 
 </flux:modal>
 

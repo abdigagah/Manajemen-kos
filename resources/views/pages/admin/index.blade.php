@@ -50,6 +50,10 @@ public function delete()
 
     $this->deleteId = null;
 
+     Flux::modal('delete-admin')->close();
+
+     $this->dispatch('$refresh');
+     
     session()->flash('success', 'Admin berhasil dihapus.');
 }
 public function edit($id)
