@@ -118,6 +118,10 @@ public function delete()
             ->latest()
             ->get();
     }
+    public function getTotalPembayaranProperty()
+{
+    return Pembayaran::sum('nominal');
+}
 };
 
 ?>
@@ -154,6 +158,15 @@ public function delete()
             {{ session('success') }}
         </flux:callout>
     @endif
+   <div class="rounded-xl border bg-white dark:bg-zinc-900 p-5 mb-4 shadow-sm">
+    <p class="text-sm text-zinc-500">
+        Total Seluruh Pembayaran
+    </p>
+
+    <h2 class="text-3xl font-bold text-green-600">
+        Rp {{ number_format($this->totalPembayaran, 0, ',', '.') }}
+    </h2>
+</div>
     <div class="overflow-hidden rounded-xl border">
 
     <table class="min-w-full">
